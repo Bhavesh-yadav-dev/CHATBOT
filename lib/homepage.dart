@@ -68,7 +68,7 @@ class _HomepageState extends State<Homepage> {
 }
 
   void getresponse() async {
-    String apikey = "AIzaSyB2tORN8Kmo4sWngYSVsj-8f280QuwtZkY";
+    String apikey = "enter your api key here ";
     String url =
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=$apikey";
 
