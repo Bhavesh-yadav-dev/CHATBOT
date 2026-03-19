@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -43,7 +44,14 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
 
-            ElevatedButton(onPressed: () {}, child: Text("send your throught")),
+            ElevatedButton(
+              onPressed: () {
+                if (userinput.text.isNotEmpty) {
+                  getresponse();
+                }
+              },
+              child: Text("send your throught"),
+            ),
 
             Text(res, style: TextStyle(fontSize: 20)),
           ],
@@ -54,6 +62,24 @@ class _HomepageState extends State<Homepage> {
 
   void getresponse() async {
     String apikey = "";
-    
+    String url =
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=$apikey";
+
+    Map<String, dynamic> parambody = {
+      "contents": [
+        {
+          "parts": [
+            {"text": userinput.text},
+          ],
+        },
+      ],
+    };
+    var response = await http.post(Uri.parse(url), body: jsonEncode(parambody));
+
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print(response.statusCode);
+    }
   }
 }
