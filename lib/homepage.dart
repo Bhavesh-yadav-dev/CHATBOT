@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
+// import 'dart:math';
 import 'package:gpt_markdown/gpt_markdown.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -25,58 +25,70 @@ class _HomepageState extends State<Homepage> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          
         ),
 
         body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 20,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 20,
                 ),
-              child: GptMarkdown(res, style: const TextStyle(fontSize: 20)),
+                child: GptMarkdown(res, style: const TextStyle(fontSize: 20)),
+              ),
             ),
-          ),
 
-           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: TextField(
-              controller: userinput,
-              decoration: InputDecoration(
-                hintText: "Ask me anything...",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    if (userinput.text.isNotEmpty) {
-                      getresponse();
-                      userinput.clear(); 
-                    }
-                  },
-                  icon: const Icon(Icons.send),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: TextField(
+                controller: userinput,
+                decoration: InputDecoration(
+                  hintText: "Ask me anything...",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      if (userinput.text.isNotEmpty) {
+                        getresponse();
+                        userinput.clear();
+                      }
+                    },
+                    icon: const Icon(Icons.send),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   void getresponse() async {
-    String apikey = "enter your api key here ";
+    String mySyllabusData = """  nehbhbh""";
+
+
+
+
+    
+    String apikey = "AIzaSyBJlKvhf3CY_gcFprUsGBJozHOiVKJfVmk";
     String url =
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=$apikey";
 
     Map<String, dynamic> parambody = {
+      "system_instruction": {
+        "parts": [
+          {"text": mySyllabusData},
+        ],
+      },
       "contents": [
         {
           "parts": [
-            {"text": userinput.text},
+            {
+              {"text": userinput.text},
+            },
           ],
         },
       ],
